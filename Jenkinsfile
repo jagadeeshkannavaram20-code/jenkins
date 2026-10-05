@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/jagadeeshkannavaram20-code/jenkins.git'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t node-app .'
+      }
+    }
+    stage('Run Container') {
+      steps {
+        sh 'docker run -d -p 3000:3000 --name node-app node-app'
+      }
+    }
+  }
+}
